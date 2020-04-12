@@ -1,0 +1,57 @@
+---
+title: "Lynsey Keator Assignment #9"
+date: April 14, 2020
+output: html_notebook
+---
+
+Part I
+
+```{r}
+library(tidyverse)
+library(here)
+
+abuse <- read_csv(here("Data", "Sexual Abuse Data.csv"))
+```
+
+*1. Create a graph to compare the PTSD scores of women who suffered childhood sexual abuse to those who did not suffer childhood sexual abuse.*
+
+```{r}
+
+ggplot(data = abuse) +
+  geom_boxplot(mapping = aes(x = csa, y = ptsd)) +
+  labs( x= "Childhood Sexual Abuse", y = "Post traumatic stress disorder scale",
+  title = "PTSD Scores",
+  caption = "This is a graph comparing PTSD scores for women who suffered childhood sexual abuse and those who did not. 
+  Higher scores indicate higher PTSD") +
+  scale_x_discrete(labels = c('Abused', 'Not Abused'))
+```
+
+
+
+2. Create a graph to compare the childhood physical abuse scores of women who suffered childhood sexual abuse to those who did not suffer childhood childhood sexual abuse.
+
+```{r}
+ggplot(data = abuse) +
+  geom_boxplot(mapping = aes(x = csa, y = cpa)) +
+  labs( x= "Childhood Sexual Abuse", y = "Childhood Physical Abuse",
+  title = "Physical Abuse",
+  caption = "This is a graph comparing Childhood Physical Abuse scores for women who suffered childhood sexual abuse and those who did not. 
+  Higher scores indicate more abuse") +
+  scale_x_discrete(labels = c('Abused', 'Not Abused'))
+```
+
+
+3. Create a scatterplot that relates PTSD scores (the response variable) to childhood physical abuse scores (the explanatory variable). Use different types of points and colors to differentiate between the women who suffered childhood abuse and those who did not suffer childhood sexual abuse. Put two linear regression lines on your plot to relate PTSD to childhood physical abuse separately for those who suffered childhood abuse and those who did not. Use the same color as the related points for the regression lines to make it obvious which points relate to which group.
+
+```{r}
+ggplot(data = abuse) +
+geom_point(mapping = aes(x = cpa, y = ptsd, color = csa)) +
+  labs(x = "Childhood Physical Abuse",
+        y = "PTSD Scores",
+        title = "Association between PTSD scores and Childhood Physical Abuse",
+        caption = "This graph is a correlation between PTSD scores and Physical Abuse. Higher scores indicate higher more severe PTSD and Abuse",
+        color = "Childhood Sexual Abuse") +
+  theme(legend.position = "top") +
+  scale_fill_discrete(labels=c('Abused', 'Not Abused')) +
+  stat_smooth(method = "lm", se = FALSE, mapping = aes(x = cpa, y = ptsd, color = csa))
+```
