@@ -52,6 +52,6 @@ geom_point(mapping = aes(x = cpa, y = ptsd, color = csa)) +
         caption = "This graph is a correlation between PTSD scores and Physical Abuse. Higher scores indicate higher more severe PTSD and Abuse",
         color = "Childhood Sexual Abuse") +
   theme(legend.position = "top") +
-  scale_fill_discrete(labels=c('Abused', 'Not Abused')) +
+  scale_color_discrete(labels=c('Abused', 'Not Abused')) +
   stat_smooth(method = "lm", se = FALSE, mapping = aes(x = cpa, y = ptsd, color = csa))
 ```
